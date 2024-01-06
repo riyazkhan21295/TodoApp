@@ -4,11 +4,13 @@ import { Alert } from 'react-native';
 const INITIAL_FORM_VALUE = {
 	task: '',
 	category: '',
+	priority:'',
 };
 
 const useSaveTodoForm = ({ todo, onSave }) => {
 	const [data, setData] = useState({
 		task: todo?.task || INITIAL_FORM_VALUE.task,
+		priority: todo?.priority || INITIAL_FORM_VALUE.priority,
 		category: todo?.category || INITIAL_FORM_VALUE.category,
 	});
 
@@ -20,10 +22,19 @@ const useSaveTodoForm = ({ todo, onSave }) => {
 		}));
 	};
 
+
+
 	const onSelectCategory = (value) => {
 		setData((previousValues) => ({
 			...previousValues,
 			category: value,
+		}));
+	};
+
+	const onSelectPriotity = (value) => {
+		setData((previousValues) => ({
+			...previousValues,
+			priority: value,
 		}));
 	};
 
@@ -47,6 +58,7 @@ const useSaveTodoForm = ({ todo, onSave }) => {
 		onChangeTask,
 		onSelectCategory,
 		onSubmit,
+		onSelectPriotity,
 	};
 };
 

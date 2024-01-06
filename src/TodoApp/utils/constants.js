@@ -14,3 +14,39 @@ export const CATEGORIES = [
 	'Hiking',
 	'Other',
 ];
+
+export const PRIORITIES = ['Important', 'Medium', 'Low'];
+
+export const getPriorityColor = (priority) => {
+	switch (priority) {
+		case 'Important':
+			return 'red';
+
+		case 'Medium':
+			return 'orange';
+
+		case 'Low':
+		default:
+			return '#000';
+	}
+};
+
+export const getCategoryColor = (category) => {
+	switch (category) {
+		case 'Personal':
+			return 'darkblue';
+
+		case 'Work':
+			return 'purple';
+
+		case 'Utilities':
+			return 'blue';
+
+		case 'Hiking':
+			return 'cyan';
+
+		case 'Other':
+		default:
+			return 'grey';
+	}
+};

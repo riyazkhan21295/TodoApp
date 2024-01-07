@@ -1,10 +1,5 @@
-import { SafeAreaView } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
-import {
-	SafeAreaProvider,
-	useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import TodoApp from './src/TodoApp';

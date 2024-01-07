@@ -6,6 +6,8 @@ export const COLORS = {
 	primaryBg: '#d3d3d3',
 };
 
+export const FILTERS = ['all', 'pending', 'completed'];
+
 export const CATEGORIES = [
 	'Personal',
 	'Work',
@@ -15,38 +17,14 @@ export const CATEGORIES = [
 	'Other',
 ];
 
-export const PRIORITIES = ['Important', 'Medium', 'Low'];
+export const PRIORITIES = ['high', 'medium', 'low'];
 
-export const getPriorityColor = (priority) => {
-	switch (priority) {
-		case 'Important':
-			return 'red';
+export const getPriorityColor = (priority = 'low') => {
+	const COLOR_MAPPING = {
+		high: '#E2445C',
+		medium: '#FDAB3D',
+		low: '#7e8491',
+	};
 
-		case 'Medium':
-			return 'orange';
-
-		case 'Low':
-		default:
-			return '#000';
-	}
-};
-
-export const getCategoryColor = (category) => {
-	switch (category) {
-		case 'Personal':
-			return 'darkblue';
-
-		case 'Work':
-			return 'purple';
-
-		case 'Utilities':
-			return 'blue';
-
-		case 'Hiking':
-			return 'cyan';
-
-		case 'Other':
-		default:
-			return 'grey';
-	}
+	return COLOR_MAPPING[priority];
 };

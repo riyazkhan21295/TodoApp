@@ -1,11 +1,26 @@
 import { Text, View, Image, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export const Header = () => {
-	const insets = useSafeAreaInsets();
+const styles = StyleSheet.create({
+	container: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		gap: 16,
+	},
+	avatar: {
+		width: 50,
+		height: 50,
+		borderRadius: 25,
+	},
+	greeting: {
+		fontSize: 24,
+		fontWeight: 'bold',
+		color: '#fff',
+	},
+});
 
+const Header = () => {
 	return (
-		<View style={[styles.container, { marginTop: insets.top }]}>
+		<View style={styles.container}>
 			<Image
 				style={styles.avatar}
 				source={require('../../../assets/user.png')}
@@ -15,21 +30,4 @@ export const Header = () => {
 	);
 };
 
-const styles = StyleSheet.create({
-	container: {
-		padding: 10,
-		flexDirection: 'row',
-		alignItems: 'center',
-	},
-	avatar: {
-		width: 50,
-		height: 50,
-		borderRadius: 25,
-		marginRight: 10,
-	},
-	greeting: {
-		fontSize: 22,
-		fontWeight: 'bold',
-		color: '#fff',
-	},
-});
+export default Header;

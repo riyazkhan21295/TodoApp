@@ -1,113 +1,58 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useRef, useState } from 'react';
-import { STORAGE_KEY } from './utils/constants';
+import { useRef, useState } from 'react';
 
-const updateStorage = (newTodoList) => {
-	AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newTodoList));
-};
-
-const useTodoApp = () => {
+const useTodoApp = ({ addTodo, editTodo, toggleTodoComplete, deleteTodo }) => {
+	const actionModalRef = useRef(null);
 	const saveModalRef = useRef(null);
 
-	const [todoList, setTodoList] = useState([]);
 	const [actionTodoId, setActionTodoId] = useState(null);
-
-	useEffect(() => {
-		const getTodoList = async () => {
-			try {
-				const data = await AsyncStorage.getItem(STORAGE_KEY);
-
-				if (data) {
-					setTodoList(JSON.parse(data));
-				}
-			} catch (error) {
-				console.error('error :: ', error);
-			}
-		};
-
-		getTodoList();
-	}, []);
-
-	const addTodo = (data) => {
-		const newTodo = {
-			id: new Date().getTime(),
-			...data,
-			completed: false,
-		};
-
-		const newTodoList = [newTodo, ...todoList];
-
-		setTodoList(newTodoList);
-
-		return newTodoList;
-	};
-
-	const editTodo = (data) => {
-		const newTodoList = todoList.map((todo) => {
-			return {
-				...todo,
-				...(todo.id === data.id && data),
-			};
-		});
-
-		setTodoList(newTodoList);
-
-		setActionTodoId(null);
-
-		return newTodoList;
-	};
 
 	const saveTodo = (data) => {
 		const saveTodoFunctionRef = actionTodoId ? editTodo : addTodo;
 
-		const newTodoList = saveTodoFunctionRef(data);
-
-		updateStorage(newTodoList);
-
-		saveModalRef.current?.close();
-	};
-
-	const toggleTodoComplete = (todoId) => {
-		const newTodoList = todoList.map((todo) => {
-			return {
-				...todo,
-				completed:
-					todo.id === todoId ? !todo.completed : todo.completed,
-			};
+		saveTodoFunctionRef({
+			data,
+			onSuccess: ({ newTodoList }) => {
+				saveModalRef.current?.close();
+			},
 		});
-
-		setTodoList(newTodoList);
-
-		updateStorage(newTodoList);
 	};
 
-	const onPressEditTodo = (todoId) => {
+	const onPressContent = (todoId) => {
 		setActionTodoId(todoId);
 
+		actionModalRef.current?.open();
+	};
+
+	const onPressEditButton = () => {
+		actionModalRef.current?.close();
 		saveModalRef.current?.open();
 	};
 
-	// const onPressDeleteTodo = (todoId) => { };
+	const onPressDeleteButton = () => {
+		deleteTodo(actionTodoId);
 
-	const deleteTodo = (todoId) => {
-		const newTodoList = todoList.filter((todo) => {
-			return todo.id !== todoId;
-		});
+		actionModalRef.current?.close();
+	};
 
-		setTodoList(newTodoList);
+	const onPressCheckbox = (todoId) => {
+		toggleTodoComplete(todoId);
+	};
 
-		updateStorage(newTodoList);
+	const onCloseModal = () => {
+		setActionTodoId(null);
 	};
 
 	return {
+		actionModalRef,
 		saveModalRef,
-		todoList,
 		actionTodoId,
 		setActionTodoId,
 		saveTodo,
-		toggleTodoComplete,
-		onPressEditTodo,
-		deleteTodo,
+		onPressContent,
+		onPressEditButton,
+		onPressDeleteButton,
+		onPressCheckbox,
+		onCloseModal,
 	};
 };
 

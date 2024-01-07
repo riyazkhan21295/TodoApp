@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 const INITIAL_FORM_VALUE = {
 	task: '',
 	category: '',
-	priority:'',
+	priority: '',
 };
 
 const useSaveTodoForm = ({ todo, onSave }) => {
@@ -14,15 +14,19 @@ const useSaveTodoForm = ({ todo, onSave }) => {
 		category: todo?.category || INITIAL_FORM_VALUE.category,
 	});
 
+	const onChangeValue = (key) => (value) => {
+		setData((previousValues) => ({
+			...previousValues,
+			[key]: value,
+		}));
+	};
+
 	const onChangeTask = (value) => {
 		setData((previousValues) => ({
 			...previousValues,
 			task: value,
-			...(todo && { id: todo.id }),
 		}));
 	};
-
-
 
 	const onSelectCategory = (value) => {
 		setData((previousValues) => ({
@@ -31,7 +35,7 @@ const useSaveTodoForm = ({ todo, onSave }) => {
 		}));
 	};
 
-	const onSelectPriotity = (value) => {
+	const onSelectPriority = (value) => {
 		setData((previousValues) => ({
 			...previousValues,
 			priority: value,
@@ -39,8 +43,6 @@ const useSaveTodoForm = ({ todo, onSave }) => {
 	};
 
 	const onSubmit = () => {
-		console.log('data ::', data);
-
 		const isInputsEmpty = Object.values(data).some((value) => {
 			return !value.toString().trim();
 		});
@@ -50,15 +52,13 @@ const useSaveTodoForm = ({ todo, onSave }) => {
 			return;
 		}
 
-		onSave(data);
+		onSave({ ...data, ...(todo && { id: todo.id }) });
 	};
 
 	return {
 		data,
-		onChangeTask,
-		onSelectCategory,
+		onChangeValue,
 		onSubmit,
-		onSelectPriotity,
 	};
 };
 

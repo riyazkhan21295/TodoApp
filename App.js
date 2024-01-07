@@ -11,8 +11,8 @@ export default function App() {
 			<GestureHandlerRootView style={{ flex: 1 }}>
 				<LinearGradient
 					style={{ flex: 1 }}
-					start={{ x: 1, y: 0 }}
-					end={{ x: 1, y: 0.8 }}
+					start={{ x: 0.5, y: 0.4 }}
+					end={{ x: 1, y: 0.6 }}
 					colors={[COLORS.primary, COLORS.secondary]}
 				>
 					<TodoApp />

@@ -75,7 +75,7 @@ const TodoApp = () => {
 					<Entypo
 						name='plus'
 						size={32}
-						color='#fff'
+						color={COLORS.white}
 					/>
 				</Pressable>
 			</View>
@@ -86,7 +86,7 @@ const TodoApp = () => {
 				modalStyle={styles.modalStyle}
 				keyboardAvoidingOffset={50}
 				scrollViewProps={{ keyboardShouldPersistTaps: 'always' }}
-				onClose={onCloseModal}
+				onOverlayPress={onCloseModal}
 			>
 				<SaveTodoForm
 					key={actionTodoId}
@@ -100,7 +100,7 @@ const TodoApp = () => {
 				adjustToContentHeight
 				keyboardAvoidingOffset={50}
 				scrollViewProps={{ keyboardShouldPersistTaps: 'always' }}
-				onClose={onCloseModal}
+				onOverlayPress={onCloseModal}
 			>
 				<View style={styles.actionButtonsContainer}>
 					<ActionButtons

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 		borderTopLeftRadius: 0,
 		borderBottomLeftRadius: 0,
 
-		backgroundColor: '#fff',
+		backgroundColor: COLORS.gray2,
 
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
 		gap: 16,
 	},
 	containerIsCompleted: {
-		backgroundColor: '#c0c3c9',
-		borderLeftColor: '#7e8491',
+		backgroundColor: COLORS.gray3,
+		borderLeftColor: COLORS.gray4,
 	},
 	contentContainer: {
 		flex: 1,
@@ -31,13 +31,13 @@ const styles = StyleSheet.create({
 	task: {
 		fontSize: 18,
 		fontWeight: 'bold',
-		color: '#000',
+		color: COLORS.black,
 
 		textTransform: 'capitalize',
 	},
 	taskIsCompleted: {
 		// textDecorationLine: 'line-through',
-		// textDecorationColor: '#333',
+		// textDecorationColor: COLORS.black,
 	},
 	otherContentContainer: {
 		flexDirection: 'row',
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 	},
 	priorityContainer: {
 		borderWidth: 1,
-		borderColor: '#ccc',
+		borderColor: COLORS.gray1,
 		borderRadius: 25,
 
 		paddingVertical: 2,
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
 		textTransform: 'uppercase',
 		fontSize: 12,
 		fontWeight: 'bold',
-		color: '#ccc',
+		borderColor: COLORS.gray1,
 	},
 });
 

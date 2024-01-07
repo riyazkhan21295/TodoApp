@@ -1,19 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { COLORS } from '../utils/constants';
 
 const styles = StyleSheet.create({
-	container: {},
+	container: {
+		gap: 8,
+	},
 	text: {
-		color: '#fff',
-		fontSize: 18,
+		color: COLORS.white,
+		fontSize: 24,
+		fontWeight: 'bold',
 		alignSelf: 'center',
 	},
 	description: {
-		marginTop: 10,
-		color: '#fff',
-		fontSize: 12,
+		color: COLORS.white,
+		fontSize: 16,
 		alignSelf: 'center',
-		fontWeight: 'bold',
 	},
 });
 

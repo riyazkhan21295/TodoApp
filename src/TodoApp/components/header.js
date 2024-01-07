@@ -1,4 +1,5 @@
 import { Text, View, Image, StyleSheet } from 'react-native';
+import { COLORS } from '../utils/constants';
 
 const styles = StyleSheet.create({
 	container: {
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
 	greeting: {
 		fontSize: 24,
 		fontWeight: 'bold',
-		color: '#fff',
+		color: COLORS.white,
 	},
 });
 

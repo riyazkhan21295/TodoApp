@@ -1,176 +1,92 @@
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import Entypo from "@expo/vector-icons/Entypo";
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { CATEGORIES, PRIORITIES, COLORS } from "../../utils/constants";
-import useSaveTodoForm from "./useSaveTodoForm";
+import useSaveTodoForm from './useSaveTodoForm';
+
+import Pills from '../pills';
+
+import { CATEGORIES, PRIORITIES, COLORS } from '../../utils/constants';
 
 const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 30,
-    paddingHorizontal: 10,
-  },
-  textInput: {
-    height: 40,
-    borderRadius: 5,
-	textAlignVertical:'top',
-    paddingHorizontal: 10,
-    backgroundColor: COLORS.primaryBg,
-  },
-  inputLabel:{
-	marginTop:15,
-	color:'grey'
-  },
-  saveButton: {
-    borderRadius: 5,
-    flexDirection: "row",
-    paddingVertical: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: COLORS.primary,
-  },
-  saveButtonText: {
-    color: "#fff",
-    fontSize: 20,
-    marginRight: 10,
-  },
+	container: {
+		paddingVertical: 30,
+		paddingHorizontal: 10,
 
-  labelContainer: {
-    marginVertical: 10,
-  },
-  labelText: {
-    color: "#000",
-  },
-  labelTextPressed: {
-    color: "#fff",
-  },
-  labelItem: {
-    borderRadius: 5,
-    marginRight: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: COLORS.primaryBg,
-  },
-  labelItemPressed: {
-    backgroundColor: COLORS.primary,
-  },
+		gap: 16,
+	},
+	inputContainer: {},
+	textInput: {
+		height: 40,
+		borderRadius: 4,
+		paddingHorizontal: 16,
+		backgroundColor: COLORS.gray3,
+	},
+	inputLabel: {
+		color: COLORS.black,
+		marginBottom: 2,
+	},
+	saveButton: {
+		borderRadius: 4,
+		flexDirection: 'row',
+		paddingVertical: 10,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: COLORS.primary,
+	},
+	saveButtonText: {
+		color: COLORS.white,
+		fontWeight: 'bold',
+		fontSize: 20,
+		marginRight: 10,
+	},
 });
 
-const LabelsSelector = ({ selectedLabel, onLabelSelected }) => {
-  return (
-    <ScrollView
-      horizontal
-      style={styles.labelContainer}
-      showsHorizontalScrollIndicator={false}
-    >
-      {CATEGORIES.map((label) => {
-        const isSelected = label === selectedLabel;
-        return (
-          <Pressable
-            key={label}
-            style={({ pressed }) => [
-              styles.labelItem,
-              pressed || (isSelected && styles.labelItemPressed),
-            ]}
-            onPress={() => onLabelSelected(label)}
-          >
-            {({ pressed }) => (
-              <Text
-                style={[
-                  styles.labelText,
-                  pressed || (isSelected && styles.labelTextPressed),
-                ]}
-              >
-                {label}
-              </Text>
-            )}
-          </Pressable>
-        );
-      })}
-    </ScrollView>
-  );
-};
-
-const PrioritySelector = ({ selectedLabel, onLabelSelected }) => {
-  return (
-    <ScrollView
-      horizontal
-      style={styles.labelContainer}
-      showsHorizontalScrollIndicator={false}
-    >
-      {PRIORITIES.map((label) => {
-        const isSelected = label === selectedLabel;
-        return (
-          <Pressable
-            key={label}
-            style={({ pressed }) => [
-              styles.labelItem,
-              pressed || (isSelected && styles.labelItemPressed),
-            ]}
-            onPress={() => onLabelSelected(label)}
-          >
-            {({ pressed }) => (
-              <Text
-                style={[
-                  styles.labelText,
-                  pressed || (isSelected && styles.labelTextPressed),
-                ]}
-              >
-                {label}
-              </Text>
-            )}
-          </Pressable>
-        );
-      })}
-    </ScrollView>
-  );
-};
-
 const SaveTodoForm = ({ todo, onSave }) => {
-  const { data, onChangeTask, onSelectCategory, onSelectPriotity,onDateChange, onSubmit } =
-    useSaveTodoForm({
-      todo,
-      onSave,
-    });
+	const { data, onChangeValue, onSubmit } = useSaveTodoForm({
+		todo,
+		onSave,
+	});
 
-  return (
-    <View style={styles.container}>
-      <TextInput
-        value={data.task}
-        onChangeText={onChangeTask}
-        style={styles.textInput}
-        placeholder="Write your task..."
-      />
+	return (
+		<View style={styles.container}>
+			<View style={styles.inputContainer}>
+				<TextInput
+					value={data.task}
+					onChangeText={onChangeValue('task')}
+					style={styles.textInput}
+					placeholder='Write your task...'
+					placeholderTextColor={COLORS.black}
+				/>
+			</View>
 
-      <Text style={styles.inputLabel}>Select Category</Text>
-      <LabelsSelector
-        selectedLabel={data.category}
-        onLabelSelected={onSelectCategory}
-      />
+			<View style={styles.inputContainer}>
+				<Text style={styles.inputLabel}>Select Category</Text>
+				<Pills
+					items={CATEGORIES}
+					selectedItem={data.category}
+					onSelect={onChangeValue('category')}
+				/>
+			</View>
 
-      <Text style={styles.inputLabel}>Select Priority</Text>
-      <PrioritySelector
-        selectedLabel={data.priority}
-        onLabelSelected={onSelectPriotity}
-      />
+			<View style={styles.inputContainer}>
+				<Text style={styles.inputLabel}>Select Priority</Text>
+				<Pills
+					items={PRIORITIES}
+					selectedItem={data.priority}
+					onSelect={onChangeValue('priority')}
+				/>
+			</View>
 
-      <Pressable
-        style={({ pressed }) => [
-          styles.saveButton,
-          pressed && { opacity: 0.5 },
-        ]}
-        onPress={onSubmit}
-      >
-        <Text style={styles.saveButtonText}>SAVE</Text>
-      </Pressable>
-    </View>
-  );
+			<Pressable
+				style={({ pressed }) => [
+					styles.saveButton,
+					pressed && { opacity: 0.5 },
+				]}
+				onPress={onSubmit}
+			>
+				<Text style={styles.saveButtonText}>SAVE</Text>
+			</Pressable>
+		</View>
+	);
 };
 
 export default SaveTodoForm;

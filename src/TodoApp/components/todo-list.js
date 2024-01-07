@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 
-import Filters from './filters';
+import Pills from './pills';
 import EmptyTodoList from './empty-list';
 import TodoItem from './todo-item';
 
@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		gap: 16,
 	},
+	filterContainer: {},
 	listContainer: {
 		gap: 16,
 		paddingBottom: 60,
@@ -34,10 +35,13 @@ const TodoList = ({ todoList, onPressContent, onPressCheckbox }) => {
 
 	return (
 		<View style={styles.container}>
-			<Filters
-				activeFilter={activeFilter}
-				setActiveFilter={setActiveFilter}
-			/>
+			<View style={styles.filterContainer}>
+				<Pills
+					items={FILTERS}
+					selectedItem={activeFilter}
+					onSelect={setActiveFilter}
+				/>
+			</View>
 
 			<FlatList
 				data={filteredTodoList}

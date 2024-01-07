@@ -3,7 +3,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { Modalize } from 'react-native-modalize';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import useTodoActions from './useTodoActions';
+import useTodoOperations from './useTodoOperations';
 import useTodoApp from './useTodoApp';
 
 import Header from './components/header';
@@ -44,7 +44,7 @@ const TodoApp = () => {
 	const insets = useSafeAreaInsets();
 
 	const { todoList, addTodo, editTodo, toggleTodoComplete, deleteTodo } =
-		useTodoActions();
+		useTodoOperations();
 
 	const {
 		actionModalRef,

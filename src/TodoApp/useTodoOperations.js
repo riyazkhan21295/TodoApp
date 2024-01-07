@@ -7,7 +7,7 @@ const updateStorage = (newTodoList) => {
 	AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newTodoList));
 };
 
-const useTodoActions = () => {
+const useTodoOperations = () => {
 	const [todoList, setTodoList] = useState([]);
 
 	useEffect(() => {
@@ -84,4 +84,4 @@ const useTodoActions = () => {
 	return { todoList, addTodo, editTodo, toggleTodoComplete, deleteTodo };
 };
 
-export default useTodoActions;
+export default useTodoOperations;

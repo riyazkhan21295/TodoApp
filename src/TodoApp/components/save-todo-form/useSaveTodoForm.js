@@ -10,35 +10,14 @@ const INITIAL_FORM_VALUE = {
 const useSaveTodoForm = ({ todo, onSave }) => {
 	const [data, setData] = useState({
 		task: todo?.task || INITIAL_FORM_VALUE.task,
-		priority: todo?.priority || INITIAL_FORM_VALUE.priority,
 		category: todo?.category || INITIAL_FORM_VALUE.category,
+		priority: todo?.priority || INITIAL_FORM_VALUE.priority,
 	});
 
 	const onChangeValue = (key) => (value) => {
 		setData((previousValues) => ({
 			...previousValues,
 			[key]: value,
-		}));
-	};
-
-	const onChangeTask = (value) => {
-		setData((previousValues) => ({
-			...previousValues,
-			task: value,
-		}));
-	};
-
-	const onSelectCategory = (value) => {
-		setData((previousValues) => ({
-			...previousValues,
-			category: value,
-		}));
-	};
-
-	const onSelectPriority = (value) => {
-		setData((previousValues) => ({
-			...previousValues,
-			priority: value,
 		}));
 	};
 
